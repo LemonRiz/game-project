@@ -12,10 +12,11 @@ Create Grid (done)
 Click event for each grid square
     Should not allow repeat clicks
     Should stop allowing clicks when game is over
-    Should change innerHTML or add image to grid
-    Need to change player from click to click
+    Should change innerHTML to add image/emoji to grid
+    Need to change player once html is changed
 
 Need to be able to declare a winner/draw.
 
 Keep score
 Reset score
+Maybe a timer?
