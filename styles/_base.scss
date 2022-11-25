@@ -2,4 +2,13 @@
 
 * {
   font-family: $font-main;
+  text-align: center;
+}
+
+body {
+  background: radial-gradient(
+    circle,
+    rgb(31, 138, 111) 0%,
+    rgb(51, 52, 129) 100%
+  );
 }
