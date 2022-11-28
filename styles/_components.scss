@@ -27,4 +27,8 @@ h1 {
   cursor: crosshair;
 }
 
-
+.scorecard {
+  display: flex;
+  text-align: center;
+  justify-content: space-evenly;
+}

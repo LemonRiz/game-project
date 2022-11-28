@@ -40,4 +40,10 @@ h1 {
 
 .cell:hover {
   cursor: crosshair;
+}
+
+.scorecard {
+  display: flex;
+  text-align: center;
+  justify-content: space-evenly;
 }/*# sourceMappingURL=main.css.map */

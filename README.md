@@ -5,7 +5,7 @@ Game project for Nology
 Pseudocode:
 It's a game of noughts and crosses, also known as tic-tac-toe.
 
-First player is always the cross.
+First player is always the cross, afterwards loser goes first.
 
 Create Grid (done)
 
