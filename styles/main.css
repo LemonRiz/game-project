@@ -5,6 +5,10 @@
   color: white;
 }
 
+.buttons {
+  color: black;
+}
+
 body {
   background: radial-gradient(circle, rgb(31, 138, 111) 0%, rgb(51, 52, 129) 100%);
 }
@@ -32,4 +36,8 @@ h1 {
   font-size: 60px;
   margin: 30px;
   background-color: black;
+}
+
+.cell:hover {
+  cursor: crosshair;
 }/*# sourceMappingURL=main.css.map */

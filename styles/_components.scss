@@ -23,7 +23,8 @@ h1 {
   margin: 30px;
   background-color: black;
 }
-
-.buttons {
-  color: $color-button;
+.cell:hover {
+  cursor: crosshair;
 }
+
+
