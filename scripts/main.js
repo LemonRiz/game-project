@@ -1,9 +1,12 @@
 const cellButton = Array.from(document.querySelectorAll(".cell"));
 const whoseTurn = document.querySelector(".whoseTurn");
+const restart = document.querySelector(".restart");
+const playAgain = document.querySelector(".playAgain");
+const overview = document.querySelector(".overview");
 
 let player = "X";
 
-const win = [
+const winCombos = [
   ["0", "1", "2"],
   ["3", "4", "5"],
   ["6", "7", "8"],
@@ -13,8 +16,6 @@ const win = [
   ["0", "4", "8"],
   ["2", "4", "6"],
 ];
-
-
 
 // const gameStatus
 
@@ -36,4 +37,19 @@ cellButton.forEach((cell) => {
       whoseTurn.innerHTML = "Current Turn: O";
     }
   });
+});
+
+playAgain.addEventListener("click", () => {
+  cellButton.forEach((cell) => {
+    cell.innerHTML = "";
+  });
+});
+
+restart.addEventListener("click", () => {
+  cellButton.forEach((cell) => {
+    cell.innerHTML = "";
+  });
+  overview.innerHTML = "";
+  player = "X";
+  whoseTurn.innerHTML = "Current Turn: X";
 });
