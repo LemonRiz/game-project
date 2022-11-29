@@ -7,6 +7,7 @@ const overview = document.querySelector(".overview");
 let player = "X";
 let gameState = ["", "", "", "", "", "", "", "", ""];
 let roundWon = false;
+let draw = false;
 
 const winCombos = [
   ["0", "1", "2"],
@@ -24,8 +25,10 @@ const winCombos = [
 console.log(cellButton);
 
 const cellPlayed = (clickedCellID, clickedCell) => {
-  gameState[clickedCellID] = player;
-  clickedCell.innerHTML += player;
+  if (roundWon === false) {
+    gameState[clickedCellID] = player;
+    clickedCell.innerHTML += player;
+  }
 };
 
 const resultChecker = () => {
@@ -33,7 +36,6 @@ const resultChecker = () => {
   for (let i = 0; i < winCombos.length; i++) {
     // testing against each type of win combination
     const winCombo = winCombos[i];
-    console.log(winCombo);
     let a = gameState[winCombo[0]];
     let b = gameState[winCombo[1]];
     let c = gameState[winCombo[2]];
@@ -49,27 +51,34 @@ const resultChecker = () => {
 };
 
 const cellClick = (event) => {
-  const clickedCell = event.target;
-  const clickedCellID = event.target.id;
-  // check if cell has already been clicked vs game state
-  if (gameState[clickedCellID] != "") {
-    return;
-  }
-  cellPlayed(clickedCellID, clickedCell);
-  // check result
-  resultChecker();
-
+  // Only works if the game isn't won
   if (roundWon == true) {
-    if (player == "X") {
-      window.alert("Player X wins!");
-    } else if (player == "O") {
-      window.alert("Player O wins!");
+    window.alert("The game is over! ")
+  } else {
+    const clickedCell = event.target;
+    const clickedCellID = event.target.id;
+    // check if cell has already been clicked vs game state
+    if (gameState[clickedCellID] != "") {
+      return;
     }
-  }
-  if (player == "X") {
-    player = "O";
-  } else if (player == "O") {
-    player = "X";
+    cellPlayed(clickedCellID, clickedCell);
+    // check result
+    resultChecker();
+
+    if (roundWon == true) {
+      if (player == "X") {
+        window.alert("Player X wins!");
+        overview.innerHTML += "<li>X Won</li>";
+      } else if (player == "O") {
+        window.alert("Player O wins!");
+        overview.innerHTML += "<li>O Won</li>";
+      }
+    }
+    if (player == "X") {
+      player = "O";
+    } else if (player == "O") {
+      player = "X";
+    }
   }
 };
 
@@ -78,19 +87,26 @@ cellButton.forEach((cell) => {
   cell.addEventListener("click", cellClick);
 });
 
+//Restarts game. Loser goes first.
 playAgain.addEventListener("click", () => {
   cellButton.forEach((cell) => {
     cell.innerHTML = "";
+    console.log("gameState before", gameState);
+    gameState = ["", "", "", "", "", "", "", "", ""];
+    console.log("gameState after", gameState);
+    roundWon = false;
   });
 });
 
+//Completely clears history and restarts game. X goes first.
 restart.addEventListener("click", () => {
-  console.log("gameState before", gameState);
   gameState = ["", "", "", "", "", "", "", "", ""];
   cellButton.forEach((cell) => {
     cell.innerHTML = "";
   });
-  console.log("gameState after", gameState);
+  roundWon = false;
+  overview.innerHTML = "";
+  player = "X";
 });
 
 // if (player == "X" && cell.innerHTML == "") {
