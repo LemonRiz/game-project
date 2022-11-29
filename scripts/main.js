@@ -3,11 +3,14 @@ const whoseTurn = document.querySelector(".whoseTurn");
 const restart = document.querySelector(".restart");
 const playAgain = document.querySelector(".playAgain");
 const overview = document.querySelector(".overview");
+const xScore = document.querySelector(".xScore");
+const oScore = document.querySelector(".oScore");
 
 let player = "X";
 let gameState = ["", "", "", "", "", "", "", "", ""];
 let roundWon = false;
 let draw = false;
+let counter = 0;
 
 const winCombos = [
   ["0", "1", "2"],
@@ -19,9 +22,6 @@ const winCombos = [
   ["0", "4", "8"],
   ["2", "4", "6"],
 ];
-
-// const gameStatus
-
 console.log(cellButton);
 
 const cellPlayed = (clickedCellID, clickedCell) => {
@@ -52,11 +52,12 @@ const resultChecker = () => {
 
 const cellClick = (event) => {
   // Only works if the game isn't won
-  if (roundWon == true) {
-    window.alert("The game is over! ")
+  if (roundWon == true || draw == true) {
+    window.alert("The game is over! ");
   } else {
     const clickedCell = event.target;
     const clickedCellID = event.target.id;
+    counter = counter + 1;
     // check if cell has already been clicked vs game state
     if (gameState[clickedCellID] != "") {
       return;
@@ -64,14 +65,20 @@ const cellClick = (event) => {
     cellPlayed(clickedCellID, clickedCell);
     // check result
     resultChecker();
+    // check for draw
+    if (counter === 9 && roundWon === false) {
+      window.alert("A draw!");
+      draw = true;
+      overview.innerHTML += "<li>A draw!</li>";
+    }
 
     if (roundWon == true) {
       if (player == "X") {
         window.alert("Player X wins!");
-        overview.innerHTML += "<li>X Won</li>";
+        overview.innerHTML += "<li>X Won!</li>";
       } else if (player == "O") {
         window.alert("Player O wins!");
-        overview.innerHTML += "<li>O Won</li>";
+        overview.innerHTML += "<li>O Won!</li>";
       }
     }
     if (player == "X") {
@@ -79,6 +86,11 @@ const cellClick = (event) => {
     } else if (player == "O") {
       player = "X";
     }
+  }
+  if (player == "X") {
+    whoseTurn.innerHTML = "Current Turn: X";
+  } else if (player == "O") {
+    whoseTurn.innerHTML = "Current Turn: O";
   }
 };
 
@@ -91,10 +103,10 @@ cellButton.forEach((cell) => {
 playAgain.addEventListener("click", () => {
   cellButton.forEach((cell) => {
     cell.innerHTML = "";
-    console.log("gameState before", gameState);
     gameState = ["", "", "", "", "", "", "", "", ""];
-    console.log("gameState after", gameState);
     roundWon = false;
+    counter = 0;
+    draw = false;
   });
 });
 
@@ -107,6 +119,9 @@ restart.addEventListener("click", () => {
   roundWon = false;
   overview.innerHTML = "";
   player = "X";
+  counter = 0;
+  draw = false;
+  whoseTurn.innerHTML = "Current Turn: X";
 });
 
 // if (player == "X" && cell.innerHTML == "") {
@@ -116,9 +131,6 @@ restart.addEventListener("click", () => {
 //   cell.innerHTML += "O";
 //   player = "X";
 // }
-// if (player == "X") {
-//   whoseTurn.innerHTML = "Current Turn: X";
-// } else if (player == "O") {
-//   whoseTurn.innerHTML = "Current Turn: O";
+
 // }
 // ;
