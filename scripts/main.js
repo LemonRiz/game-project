@@ -12,6 +12,9 @@ let roundWon = false;
 let draw = false;
 let counter = 0;
 
+let xWins = 0;
+let oWins = 0;
+
 const winCombos = [
   ["0", "1", "2"],
   ["3", "4", "5"],
@@ -22,7 +25,6 @@ const winCombos = [
   ["0", "4", "8"],
   ["2", "4", "6"],
 ];
-console.log(cellButton);
 
 const cellPlayed = (clickedCellID, clickedCell) => {
   if (roundWon === false) {
@@ -43,7 +45,6 @@ const resultChecker = () => {
     if (a === "" || b === "" || c === "") {
       continue;
     }
-    console.log(player);
     if (a === b && b === c) {
       roundWon = true;
     }
@@ -66,7 +67,7 @@ const cellClick = (event) => {
     // check result
     resultChecker();
     // check for draw
-    if (counter === 9 && roundWon === false) {
+    if (counter >= 9 && roundWon === false) {
       window.alert("A draw!");
       draw = true;
       overview.innerHTML += "<li>A draw!</li>";
@@ -76,9 +77,11 @@ const cellClick = (event) => {
       if (player == "X") {
         window.alert("Player X wins!");
         overview.innerHTML += "<li>X Won!</li>";
+        xScore.innerHTML = ++xWins;
       } else if (player == "O") {
         window.alert("Player O wins!");
         overview.innerHTML += "<li>O Won!</li>";
+        oScore.innerHTML = ++oWins;
       }
     }
     if (player == "X") {
@@ -87,11 +90,12 @@ const cellClick = (event) => {
       player = "X";
     }
   }
-  if (player == "X") {
+  if (player == "X" && roundWon == false) {
     whoseTurn.innerHTML = "Current Turn: X";
-  } else if (player == "O") {
+  } else if (player == "O" && roundWon == false) {
     whoseTurn.innerHTML = "Current Turn: O";
   }
+  if (roundWon == true || draw == true) whoseTurn.innerHTML = "Game Over!";
 };
 
 // Click event for each grid square
@@ -107,6 +111,7 @@ playAgain.addEventListener("click", () => {
     roundWon = false;
     counter = 0;
     draw = false;
+    whoseTurn.innerHTML = "Current Turn: " + player;
   });
 });
 
@@ -122,6 +127,10 @@ restart.addEventListener("click", () => {
   counter = 0;
   draw = false;
   whoseTurn.innerHTML = "Current Turn: X";
+  xWins = 0;
+  oWins = 0;
+  xScore.innerHTML = 0;
+  oScore.innerHTML = 0;
 });
 
 // if (player == "X" && cell.innerHTML == "") {
