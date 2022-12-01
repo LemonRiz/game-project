@@ -38,6 +38,11 @@ h1 {
   font-size: large;
   border-radius: 25%;
 }
+.status__text--warning {
+  color: red;
+  box-shadow: yellow 2px 2px 2px 2px;
+  background-color: yellow;
+}
 
 #game {
   display: grid;

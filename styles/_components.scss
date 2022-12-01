@@ -26,6 +26,11 @@ h1 {
       border-radius: 25%;
     }
   }
+  &__text--warning {
+    color: red;
+    box-shadow: yellow 2px 2px 2px 2px;
+    background-color: yellow;
+  }
 }
 #game {
   display: grid;
